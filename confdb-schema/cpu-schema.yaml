@@ -1,0 +1,25 @@
+type: confdb-schema
+authority-id: <YOUR_ACCOUNT_ID>
+account-id: <YOUR_ACCOUNT_ID>
+name: cpu-stats
+revision: "5"
+timestamp: <TIMESTAMP>
+views:
+  monitor:
+    rules:
+      - request: "data.{field}"
+        storage: "stats.{field}"
+        access: read-write
+body: |-
+  {
+    "storage": {
+      "schema": {
+        "stats": {
+          "schema": {
+            "utilization": "string",
+            "last-updated": "string"
+          }
+        }
+      }
+    }
+  }

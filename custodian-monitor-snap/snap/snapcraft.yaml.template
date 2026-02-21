@@ -1,0 +1,33 @@
+name: cpu-monitor
+version: '0.1'
+summary: Exposes CPU data via ConfDB
+description: |
+  A learning experiment using mpstat to feed the Snapd ConfDB.
+confinement: strict
+base: core24
+
+apps:
+  collector:
+    command: bin/monitor-cpu.sh
+    daemon: simple
+    plugs: 
+      - stats-db
+      - system-observe
+
+plugs:
+  stats-db:
+    interface: confdb
+    account: <YOUR_ACCOUNT_ID>
+    view: cpu-stats/monitor
+    role: custodian
+
+parts:
+  monitor:
+    plugin: dump
+    source: .
+    override-build: |
+      craftctl default
+      chmod +x $CRAFT_PART_INSTALL/bin/monitor-cpu.sh
+    stage-packages:
+      - sysstat
+      - bc

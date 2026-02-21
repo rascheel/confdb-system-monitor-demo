@@ -1,0 +1,7 @@
+tags*
+*.snap
+*.assert
+confdb-schema/cpu-schema.json
+
+# Note building snapcraft.yaml from a template to auto-insert account ids and other stuff
+snapcraft.yaml
