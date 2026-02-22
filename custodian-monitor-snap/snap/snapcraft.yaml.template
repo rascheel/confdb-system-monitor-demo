@@ -6,15 +6,6 @@ description: |
 confinement: strict
 base: core24
 
-# TODO remove this section as we're just going to use hooks for ephemerals?
-#apps:
-#  collector:
-#    command: bin/monitor-cpu.sh
-#    daemon: simple
-#    plugs: 
-#      - stats-db
-#      - system-observe
-
 plugs:
   stats-db:
     interface: confdb

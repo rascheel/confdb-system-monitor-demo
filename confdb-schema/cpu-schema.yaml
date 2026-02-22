@@ -2,9 +2,8 @@ type: confdb-schema
 authority-id: <YOUR_ACCOUNT_ID>
 account-id: <YOUR_ACCOUNT_ID>
 name: cpu-stats
-revision: "6"
+revision: "8"
 timestamp: <TIMESTAMP>
-# TODO Can I make this read-only since it's moving to ephemeral?
 views:
   monitor:
     rules:
