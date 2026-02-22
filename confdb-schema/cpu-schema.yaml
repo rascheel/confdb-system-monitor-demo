@@ -2,8 +2,9 @@ type: confdb-schema
 authority-id: <YOUR_ACCOUNT_ID>
 account-id: <YOUR_ACCOUNT_ID>
 name: cpu-stats
-revision: "5"
+revision: "6"
 timestamp: <TIMESTAMP>
+# TODO Can I make this read-only since it's moving to ephemeral?
 views:
   monitor:
     rules:
@@ -16,8 +17,14 @@ body: |-
       "schema": {
         "stats": {
           "schema": {
-            "utilization": "string",
-            "last-updated": "string"
+            "utilization": {
+              "type": "string",
+              "ephemeral": true
+            },
+            "last-updated": {
+              "type": "string",
+              "ephemeral": true
+            }
           }
         }
       }

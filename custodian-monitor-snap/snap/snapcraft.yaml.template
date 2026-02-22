@@ -6,13 +6,14 @@ description: |
 confinement: strict
 base: core24
 
-apps:
-  collector:
-    command: bin/monitor-cpu.sh
-    daemon: simple
-    plugs: 
-      - stats-db
-      - system-observe
+# TODO remove this section as we're just going to use hooks for ephemerals?
+#apps:
+#  collector:
+#    command: bin/monitor-cpu.sh
+#    daemon: simple
+#    plugs: 
+#      - stats-db
+#      - system-observe
 
 plugs:
   stats-db:
@@ -21,13 +22,18 @@ plugs:
     view: cpu-stats/monitor
     role: custodian
 
+hooks:
+  load-view-stats-db:
+    plugs:
+      - system-observe
+  save-view-stats-db:
+    plugs:
+      - system-observe
+
 parts:
   monitor:
     plugin: dump
     source: .
-    override-build: |
-      craftctl default
-      chmod +x $CRAFT_PART_INSTALL/bin/monitor-cpu.sh
     stage-packages:
       - sysstat
       - bc
