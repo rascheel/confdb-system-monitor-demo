@@ -1,0 +1,6 @@
+* Add fault monitor application
+	- Should have a daemon that periodically queries CPU util hook
+	- If utilization goes over a set fault max it will log the fault to a database (SQL? or Confdb?)
+	- Will have confdb configuration options that can be used to define fault max values
+* Add hooks for a landscape server to query faults via confdb (Unsure how to do this yet. Storing faults in confdb might be sufficient in itself)
+* Add more system stats that get stored than just cpu utilization
