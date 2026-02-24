@@ -7,17 +7,17 @@ confinement: strict
 base: core24
 
 plugs:
-  stats-db:
+  cpu-stats:
     interface: confdb
     account: <YOUR_ACCOUNT_ID>
     view: cpu-stats/monitor
     role: custodian
 
 hooks:
-  load-view-stats-db:
+  load-view-cpu-stats:
     plugs:
       - system-observe
-  save-view-stats-db:
+  save-view-cpu-stats:
     plugs:
       - system-observe
 

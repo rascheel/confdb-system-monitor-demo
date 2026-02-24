@@ -1,0 +1,11 @@
+#!/bin/bash
+set -e
+
+# Log the event so you can see it in standard snap logs
+echo "observe-view-faults-config: Configuration changed. Restarting fault-monitor daemon..."
+
+# Restart the Go daemon using snapctl. 
+# $SNAP_NAME is an environment variable automatically provided by snapd.
+snapctl restart "$SNAP_NAME.fault-monitor"
+
+echo "observe-view-faults-config: Daemon restarted successfully."

@@ -1,0 +1,47 @@
+type: confdb-schema
+authority-id: <YOUR_ACCOUNT_ID>
+account-id: <YOUR_ACCOUNT_ID>
+name: faults-manager
+revision: "4"
+timestamp: <TIMESTAMP>
+views:
+  faults-config:
+    rules:
+      - request: faults
+        storage: faults
+        access: read-write
+      - request: faults[{index}].{field}
+        storage: faults[{index}].{field}
+        access: read-write
+body: |-
+  {
+    "storage": {
+      "schema": {
+        "faults": {
+          "type": "array",
+          "values": {
+            "type": "map",
+            "schema": {
+              "name": "string",
+              "severity": {
+                "type": "int",
+                "choices": [0, 1, 2]
+              },
+              "confdb-hook-poll": "string",
+              "trigger-threshold": "int",
+              "trigger-threshold-cnt": "int",
+              "trigger-comp": {
+                "type": "string",
+                "choices": [">", "<", "==", ">=", "<=", "!="]
+              },
+              "hysteresis-threshold": "int",
+              "poll-rate-ms": {
+                "type": "int",
+                "min": 500
+              }
+            }
+          }
+        }
+      }
+    }
+  }

@@ -1,0 +1,37 @@
+name: fault-monitor
+base: core22
+version: '1.0'
+summary: Configurable fault monitoring daemon
+description: |
+  A Go-based daemon that reads an array of fault configurations from 
+  confdb and polls specified snapctl hooks.
+
+grade: devel
+confinement: strict
+
+apps:
+  fault-monitor:
+    command: bin/fault-monitor
+    daemon: simple
+    restart-condition: always
+    plugs:
+      - faults-manager
+      - cpu-stats
+
+plugs:
+  faults-manager:
+    interface: confdb
+    account: <YOUR_ACCOUNT_ID>
+    view: faults-manager/faults-config
+    role: custodian
+  cpu-stats:
+    interface: confdb
+    account: <YOUR_ACCOUNT_ID>
+    view: cpu-stats/monitor
+
+parts:
+  fault-monitor:
+    plugin: go
+    source: .
+    build-snaps:
+      - go

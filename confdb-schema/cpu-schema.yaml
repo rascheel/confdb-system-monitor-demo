@@ -2,7 +2,7 @@ type: confdb-schema
 authority-id: <YOUR_ACCOUNT_ID>
 account-id: <YOUR_ACCOUNT_ID>
 name: cpu-stats
-revision: "8"
+revision: "10"
 timestamp: <TIMESTAMP>
 views:
   monitor:
@@ -17,7 +17,7 @@ body: |-
         "stats": {
           "schema": {
             "utilization": {
-              "type": "string",
+              "type": "number",
               "ephemeral": true
             },
             "last-updated": {

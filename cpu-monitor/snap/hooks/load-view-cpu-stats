@@ -1,0 +1,18 @@
+#!/bin/bash
+set -e
+
+# Fetch the idle value, forcing standard C locale to ensure a period is used for decimals
+IDLE=$(LC_ALL=C mpstat 1 1 | tail -n 1 | awk '{print $NF}')
+
+# Calculate utilization and round to the nearest integer using awk.
+# e.g., an idle of "85.60" becomes "14" (100 - 85.60 = 14.40 -> rounds to 14)
+UTIL_INT=$(awk -v idle="$IDLE" 'BEGIN { printf "%.0f", 100 - idle }')
+
+TIMESTAMP=$(date -Is)
+
+# Populate the view
+snapctl set --view :cpu-stats \
+    data.utilization="$UTIL_INT" \
+    data.last-updated="$TIMESTAMP"
+
+echo "load-view-cpu-stats: Successfully refreshed CPU stats on-demand (Utilization: $UTIL_INT)."
