@@ -40,6 +40,7 @@ sudo snap install $SNAP_NAME*.snap --dangerous
 if [[ "$SNAP_NAME" == "system-monitor" ]]; then
 	sudo snap connect $SNAP_NAME:$CONFDB_STATS_PLUG
 	sudo snap connect $SNAP_NAME:system-observe
+	sudo snap connect $SNAP_NAME:mount-observe
 	# Try this now
 	echo "Try this now: 'sudo snap get $ACCOUNT_ID/system-stats/monitor data'"
 fi

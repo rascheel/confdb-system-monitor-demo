@@ -2,7 +2,7 @@ type: confdb-schema
 authority-id: <YOUR_ACCOUNT_ID>
 account-id: <YOUR_ACCOUNT_ID>
 name: system-stats
-revision: "10"
+revision: "11"
 timestamp: <TIMESTAMP>
 views:
   monitor:
@@ -16,8 +16,22 @@ body: |-
       "schema": {
         "stats": {
           "schema": {
-            "utilization": {
-              "type": "number",
+            "cpu-utilization-percent": {
+              "type": "int",
+              "min": 0,
+              "max": 100,
+              "ephemeral": true
+            },
+            "ram-utilization-percent": {
+              "type": "int",
+              "min": 0,
+              "max": 100,
+              "ephemeral": true
+            },
+            "rfs-partition-free-percent": {
+              "type": "int",
+              "min": 0,
+              "max": 100,
               "ephemeral": true
             },
             "last-updated": {

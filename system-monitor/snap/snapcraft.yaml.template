@@ -6,6 +6,14 @@ description: |
 confinement: strict
 base: core24
 
+apps:
+  # Dummy app so we can drop into a shell for testing
+  debug:
+    command: usr/bin/bash
+    plugs:
+      - system-observe
+      - mount-observe
+
 plugs:
   system-stats:
     interface: confdb
@@ -17,9 +25,11 @@ hooks:
   load-view-system-stats:
     plugs:
       - system-observe
+      - mount-observe
   save-view-system-stats:
     plugs:
       - system-observe
+      - mount-observe
 
 parts:
   monitor:
@@ -28,3 +38,4 @@ parts:
     stage-packages:
       - sysstat
       - bc
+      - bash

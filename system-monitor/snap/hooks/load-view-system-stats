@@ -1,18 +1,26 @@
 #!/bin/bash
 set -e
 
-# Fetch the idle value, forcing standard C locale to ensure a period is used for decimals
+# --- 1. CPU Utilization (%) ---
 IDLE=$(LC_ALL=C mpstat 1 1 | tail -n 1 | awk '{print $NF}')
+CPU_UTIL=$(awk -v idle="$IDLE" 'BEGIN { printf "%.0f", 100 - idle }')
 
-# Calculate utilization and round to the nearest integer using awk.
-# e.g., an idle of "85.60" becomes "14" (100 - 85.60 = 14.40 -> rounds to 14)
-UTIL_INT=$(awk -v idle="$IDLE" 'BEGIN { printf "%.0f", 100 - idle }')
+# --- 2. RAM Utilization (%) ---
+# 'free' outputs memory stats. Divide used ($3) by total ($2) and multiply by 100.
+RAM_UTIL=$(free | awk '/Mem:/ {printf "%.0f", $3/$2 * 100}')
+
+# --- 3. Root File System Free (%) ---
+# Query the host's root filesystem directly via snapd's hostfs mount
+DISK_USED=$(df --output=pcent /var/lib/snapd/hostfs | tail -n 1 | tr -d '% ')
+RFS_FREE=$((100 - DISK_USED))
 
 TIMESTAMP=$(date -Is)
 
-# Populate the view
+# --- 4. Populate the view ---
 snapctl set --view :system-stats \
-    data.utilization="$UTIL_INT" \
+    data.cpu-utilization-percent="$CPU_UTIL" \
+    data.ram-utilization-percent="$RAM_UTIL" \
+    data.rfs-partition-free-percent="$RFS_FREE" \
     data.last-updated="$TIMESTAMP"
 
-echo "load-view-system-stats: Successfully refreshed CPU stats on-demand (Utilization: $UTIL_INT)."
+echo "load-view-system-stats: Refreshed stats (CPU: ${CPU_UTIL}%, RAM: ${RAM_UTIL}%, RFS Free: ${RFS_FREE}%)."

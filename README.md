@@ -61,3 +61,28 @@ You can take a look at the output by watching the snap logs for the fault-monito
 
 You can also just directly request data fields from the load-view-* confdb hooks: `sudo snap get <YOUR_ACCOUNT_ID>/system-stats/monitor data`
 
+## Example: trigger CPU fault
+You can trigger a CPU fault by jumping the CPU utilization percentage with `stress -c 24` (may need higher -c X value depending on your core count)
+
+See fault in log:
+```console
+$ snap logs -f fault-monitor | grep CPU
+<trimmed> [DEBUG] [CPU_HIGH_UTIL] Polled: 6 | State: Faulted=false | Count: 0/5
+<trimmed> [DEBUG] [CPU_HIGH_UTIL] Polled: 100 | State: Faulted=false | Count: 0/5
+<trimmed> [DEBUG] [CPU_HIGH_UTIL] Condition met (100 > 90). Incrementing count to 1
+<trimmed> [DEBUG] [CPU_HIGH_UTIL] Polled: 100 | State: Faulted=false | Count: 1/5
+<trimmed> [DEBUG] [CPU_HIGH_UTIL] Condition met (100 > 90). Incrementing count to 2
+<trimmed> [DEBUG] [CPU_HIGH_UTIL] Polled: 100 | State: Faulted=false | Count: 2/5
+<trimmed> [DEBUG] [CPU_HIGH_UTIL] Condition met (100 > 90). Incrementing count to 3
+<trimmed> [DEBUG] [CPU_HIGH_UTIL] Polled: 100 | State: Faulted=false | Count: 3/5
+<trimmed> [DEBUG] [CPU_HIGH_UTIL] Condition met (100 > 90). Incrementing count to 4
+<trimmed> [DEBUG] [CPU_HIGH_UTIL] Polled: 100 | State: Faulted=false | Count: 4/5
+<trimmed> [DEBUG] [CPU_HIGH_UTIL] Condition met (100 > 90). Incrementing count to 5
+<trimmed> [CPU_HIGH_UTIL] FAULT TRIGGERED! [Severity: WARNING] Value 100 met condition '> 90' (5 consecutive polls)
+<trimmed> [DEBUG] [CPU_HIGH_UTIL] Polled: 4 | State: Faulted=true | Count: 5/5
+<trimmed> [DEBUG] [CPU_HIGH_UTIL] Evaluating clear condition (4 <= 75)
+<trimmed> [CPU_HIGH_UTIL] FAULT CLEARED! Value 4 returned to normal bounds (Condition: '<= 75')
+<trimmed> [DEBUG] [CPU_HIGH_UTIL] Polled: 6 | State: Faulted=false | Count: 0/5
+<trimmed> [DEBUG] [CPU_HIGH_UTIL] Polled: 6 | State: Faulted=false | Count: 0/5
+```
+
