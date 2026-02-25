@@ -14,7 +14,7 @@ import (
 
 
 // debugLog is a helper to keep the main logic cleaner
-var EnableDebug = false
+var EnableDebug = true
 func debugLog(format string, v ...interface{}) {
 	if EnableDebug {
 		log.Printf("[DEBUG] " + format, v...)
