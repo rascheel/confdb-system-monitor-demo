@@ -11,8 +11,8 @@ UTIL_INT=$(awk -v idle="$IDLE" 'BEGIN { printf "%.0f", 100 - idle }')
 TIMESTAMP=$(date -Is)
 
 # Populate the view
-snapctl set --view :cpu-stats \
+snapctl set --view :system-stats \
     data.utilization="$UTIL_INT" \
     data.last-updated="$TIMESTAMP"
 
-echo "load-view-cpu-stats: Successfully refreshed CPU stats on-demand (Utilization: $UTIL_INT)."
+echo "load-view-system-stats: Successfully refreshed CPU stats on-demand (Utilization: $UTIL_INT)."

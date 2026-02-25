@@ -1,7 +1,7 @@
 type: confdb-schema
 authority-id: <YOUR_ACCOUNT_ID>
 account-id: <YOUR_ACCOUNT_ID>
-name: cpu-stats
+name: system-stats
 revision: "10"
 timestamp: <TIMESTAMP>
 views:

@@ -1,4 +1,4 @@
-name: cpu-monitor
+name: system-monitor
 version: '0.1'
 summary: Exposes CPU data via ConfDB
 description: |
@@ -7,17 +7,17 @@ confinement: strict
 base: core24
 
 plugs:
-  cpu-stats:
+  system-stats:
     interface: confdb
     account: <YOUR_ACCOUNT_ID>
-    view: cpu-stats/monitor
+    view: system-stats/monitor
     role: custodian
 
 hooks:
-  load-view-cpu-stats:
+  load-view-system-stats:
     plugs:
       - system-observe
-  save-view-cpu-stats:
+  save-view-system-stats:
     plugs:
       - system-observe
 

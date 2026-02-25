@@ -36,7 +36,7 @@ Confdb schemas need your account id and some other stuff in them that is annoyin
 > Make sure you have changed the KEY_NAME variable in the gen_and_load_confdb_assert.sh script to match your snapcraft key from the prereqs
 
 ```console
-$ ./gen_and_load_confdb_assert.sh cpu-schema
+$ ./gen_and_load_confdb_assert.sh system-stats-schema
 $ ./gen_and_load_confdb_assert.sh fault-mgr-schema
 ```
 
@@ -46,7 +46,7 @@ $ ./gen_and_load_confdb_assert.sh fault-mgr-schema
 ## Build the snaps and install
 When using confdb you need to insert your account ID into several places and these scripts handle that all for you plus connecting the connectors
 ```console
-$ ./build_and_install_snap.sh cpu-monitor
+$ ./build_and_install_snap.sh system-monitor
 $ ./build_and_install_snap.sh fault-monitor
 ```
 
@@ -59,5 +59,5 @@ $ ./configure_fault_config.sh
 # Monitor
 You can take a look at the output by watching the snap logs for the fault-monitor: `snap logs -f fault-monitor`
 
-You can also just directly request data fields from the load-view-* confdb hooks: `sudo snap get <YOUR_ACCOUNT_ID>/cpu-stats/monitor data`
+You can also just directly request data fields from the load-view-* confdb hooks: `sudo snap get <YOUR_ACCOUNT_ID>/system-stats/monitor data`
 

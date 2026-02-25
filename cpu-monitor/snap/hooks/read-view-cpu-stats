@@ -1,4 +1,0 @@
-#!/bin/bash
-set -e
-
-echo "read-view-cpu-stats hook: Doing nothing. Don't care to save ephemeral data to storage outside snapd"

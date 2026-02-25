@@ -142,7 +142,7 @@ func monitorFault(config FaultConfig, wg *sync.WaitGroup) {
 	triggerCount := 0
 
 	for range ticker.C {
-		valStr, err := snapctlGetConfdb(":cpu-stats", config.ConfdbHookPoll)
+		valStr, err := snapctlGetConfdb(":system-stats", config.ConfdbHookPoll)
 		if err != nil || valStr == "" {
 			debugLog("[%s] No value or error reading from confdb", config.Name)
 			continue

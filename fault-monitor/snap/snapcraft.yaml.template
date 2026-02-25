@@ -16,7 +16,7 @@ apps:
     restart-condition: always
     plugs:
       - faults-manager
-      - cpu-stats
+      - system-stats
 
 plugs:
   faults-manager:
@@ -24,10 +24,10 @@ plugs:
     account: <YOUR_ACCOUNT_ID>
     view: faults-manager/faults-config
     role: custodian
-  cpu-stats:
+  system-stats:
     interface: confdb
     account: <YOUR_ACCOUNT_ID>
-    view: cpu-stats/monitor
+    view: system-stats/monitor
 
 parts:
   fault-monitor:

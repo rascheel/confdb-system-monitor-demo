@@ -5,8 +5,8 @@ TMP_FILE="confdb-schema/tmp-schema.yaml"
 KEY_NAME="my-laptop-model-key" # Change this to your actual snapcraft key name
 
 SCHEMA_FILE=$1
-if [[ "$SCHEMA_FILE" != "cpu-schema" && "$SCHEMA_FILE" != "fault-mgr-schema" ]]; then
-    echo "Usage: $0 [cpu-schema|fault-mgr-schema]"
+if [[ "$SCHEMA_FILE" != "system-stats-schema" && "$SCHEMA_FILE" != "fault-mgr-schema" ]]; then
+    echo "Usage: $0 [system-stats-schema|fault-mgr-schema]"
     exit 1
 fi
 
