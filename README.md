@@ -86,3 +86,27 @@ $ snap logs -f fault-monitor | grep CPU
 <trimmed> [DEBUG] [CPU_HIGH_UTIL] Polled: 6 | State: Faulted=false | Count: 0/5
 ```
 
+## Example: see confdb access logs
+You can get a listing of all confdb accessess via the `snap changes` command:
+```console
+$ snap changes | tail
+49316  Done    today at 14:23 PST  today at 14:23 PST  Get confdb through "fiILE6C7rDPCGOSIFvUVxUaulCFX11sQ/system-stats/monitor"
+49317  Done    today at 14:23 PST  today at 14:23 PST  Get confdb through "fiILE6C7rDPCGOSIFvUVxUaulCFX11sQ/system-stats/monitor"
+49318  Done    today at 14:23 PST  today at 14:23 PST  Get confdb through "fiILE6C7rDPCGOSIFvUVxUaulCFX11sQ/system-stats/monitor"
+49319  Done    today at 14:23 PST  today at 14:23 PST  Get confdb through "fiILE6C7rDPCGOSIFvUVxUaulCFX11sQ/system-stats/monitor"
+49320  Done    today at 14:23 PST  today at 14:23 PST  Get confdb through "fiILE6C7rDPCGOSIFvUVxUaulCFX11sQ/system-stats/monitor"
+49321  Done    today at 14:23 PST  today at 14:23 PST  Get confdb through "fiILE6C7rDPCGOSIFvUVxUaulCFX11sQ/system-stats/monitor"
+49322  Done    today at 14:23 PST  today at 14:23 PST  Get confdb through "fiILE6C7rDPCGOSIFvUVxUaulCFX11sQ/system-stats/monitor"
+49323  Done    today at 14:23 PST  today at 14:23 PST  Get confdb through "fiILE6C7rDPCGOSIFvUVxUaulCFX11sQ/system-stats/monitor"
+49324  Doing   today at 14:23 PST  -                   Get confdb through "fiILE6C7rDPCGOSIFvUVxUaulCFX11sQ/system-stats/monitor"
+```
+
+And you can dive deeper into any particular "Get" request with `snap tasks <id>` where id comes from the first column in `snap changes`
+```console
+$ snap tasks 49323
+Status  Spawn               Ready               Summary
+Done    today at 14:23 PST  today at 14:23 PST  Clears the ongoing confdb transaction from state (on error)
+Done    today at 14:23 PST  today at 14:23 PST  Run hook load-view-system-stats of snap "system-monitor"
+Done    today at 14:23 PST  today at 14:23 PST  Clears the ongoing confdb transaction from state
+```
+
